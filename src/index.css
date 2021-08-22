@@ -31,3 +31,11 @@ code {
 .left-block span{
   cursor: pointer;
 }
+
+/*--------------------------------------------Nav----------------------------------------------------*/
+
+.right-align{
+
+  -webkit-justify-content: flex-end;
+    justify-content: flex-end;  
+}

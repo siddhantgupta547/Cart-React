@@ -1,28 +1,8 @@
 import React from 'react';
 
-class CartItem extends React.Component{
+const CartItem =(props)=>{
     
-    // IncreaseQuantity(){
-    //     // console.log(++this.state.quantity);
-    //     this.setState({
-    //         quantity: this.state.quantity+1
-    //     });
-    // }
-    
-    // DecreaseQuantity(){
-    //     if(this.state.quantity<=1)
-    //     {
-    //         return;
-    //     }
-    //     this.setState({
-    //         quantity: this.state.quantity-1
-    //     });
-    // }
-
-    render(){
-        console.log(this);
-        // console.log(this.props);
-        const {title,price,quantity}= this.props.product;
+        const {title,price,quantity}= props.product;
         return(
         <div className= 'cart-item'>
             <div className= 'right-block'>
@@ -33,20 +13,19 @@ class CartItem extends React.Component{
                 <p style= {styles.details}>{price}</p>
                 <p style= {styles.details}>{quantity}</p>
                 <div className= 'cart-items-actions'>
-                    <span className="action-icon  material-icons-outlined" onClick={()=>this.props.onIncrease(this.props.product)}>
+                    <span className="action-icon  material-icons-outlined" onClick={()=>props.onIncrease(props.product)}>
                     add
                     </span>
-                    <span className="action-icon material-icons-outlined" onClick= {()=>this.props.onDecrease(this.props.product)}>
+                    <span className="action-icon material-icons-outlined" onClick= {()=>props.onDecrease(props.product)}>
                         remove
                     </span>
-                    <span className="action-icon material-icons-outlined" onClick={()=>this.props.remove(this.props.product)}>
+                    <span className="action-icon material-icons-outlined" onClick={()=>props.remove(props.product)}>
                         delete
                     </span>    
                 </div>
             </div>
         </div>
         )
-    }
 }
 
 const styles= {
