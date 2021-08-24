@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import Cart from './cart';
 import NavBar from './NavBar';
 import Total from './Total';
+import firebase from 'firebase';
 
 
 class App extends React.Component{
@@ -10,26 +11,47 @@ class App extends React.Component{
         super();
         this.state={
             products:[
-                {
-                    id: 1,
-                    title: 'Phone',
-                    price: 74999,
-                    quantity: 1
-                },
-                {   
-                    id: 2,
-                    title: 'Watch',
-                    price: 48999,
-                    quantity: 1
-                },
-                {
-                    id: 3,
-                    title: 'Shoes',
-                    price: 8999,
-                    quantity: 2
-                }
-            ]
+
+            ],
+            loading: true
         }
+    }
+
+    componentDidMount(){
+        firebase
+            .firestore()
+            .collection("products")
+            .onSnapshot((snapshot)=>{
+                const products=snapshot.docs.map((product)=>{
+                    // const val={};
+                    // val=product.data();
+                    // val.id=product.id;
+                    // console.log(products);
+                    // return val;
+                    return product.data();
+                });
+                this.setState({
+                    products,
+                    loading: false
+                }
+                )
+            })
+            // .get()
+            // .then((snapshot)=>{
+            //     const products=snapshot.docs.map((product)=>{
+            //         // const val={};
+            //         // val=product.data();
+            //         // val.id=product.id;
+            //         // console.log(products);
+            //         // return val;
+            //         return product.data();
+            //     });
+            //     this.setState({
+            //         products,
+            //         loading: false
+            //     }
+            //     )
+            // })
     }
     
     createNav(){
@@ -89,7 +111,7 @@ class App extends React.Component{
     return (
         <div className="App">
             {this.createNav()}
-            {this.createCart()}
+            {this.state.loading ? <h1>Loading...</h1> : this.createCart()}
             {this.addTotal()}
         </div>
       );
